@@ -1,4 +1,4 @@
-SELECT 
+SELECT  
 
 T0."Priority",
 T0."Descr", 
