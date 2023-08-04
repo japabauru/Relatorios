@@ -1,0 +1,17 @@
+SELECT 
+T0."DocEntry" AS "Numero do esboço", -- Chave primaria do documento
+T1."LineNum" AS "Numero da linha", -- Numero da linha do item
+T1."ItemCode", -- Código do item
+T1."Dscription", -- Nome do item
+T1."Quantity" , -- Quantidade do item lanaçado no esboço
+T3."WhsCode",  -- código do deposito 
+T3."OnHand" -- Quantidade de item em estoque no depósito 
+
+FROM ODRF T0  
+INNER JOIN DRF1 T1 ON T0."DocEntry" = T1."DocEntry" -- Junção da tabela de esboço cabeçalaho com a linha
+INNER JOIN OITM T2 ON T1."ItemCode" = T2."ItemCode" -- Junção da tabela de esboço cabeçalaho com a tabela de item
+INNER JOIN OITW T3 ON T2."ItemCode" = T3."ItemCode" -- Junção da tabela de item com tabela de depositos "estoque"
+ 
+ WHERE T0."DocEntry" = [%0] AND  T3."WhsCode" =  [%1] -- Filtro para escolher o numero do esboço e o deposito "estoque"
+
+ORDER BY T1."LineNum" -- ordenação com numero da linha do item
